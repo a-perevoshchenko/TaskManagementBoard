@@ -1,0 +1,23 @@
+@using CommentDto = Task.Management.Board.DTOs.CommentDto
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model CommentDto
+
+@{
+    ViewData["Title"] = "Create Comment";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Content" class="control-label"></label>
+        <textarea asp-for="Content" class="form-control"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="IssueId" />
+    <input type="hidden" asp-for="UserId" value="@User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)" />
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>

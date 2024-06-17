@@ -1,0 +1,50 @@
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Projects</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Model.ProjectCount Projects</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Issues</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Model.IssueCount Issues</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Open Issues</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Model.OpenIssuesCount Open Issues</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Closed Issues</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">@Model.ClosedIssuesCount Closed Issues</p>
+            </div>
+        </div>
+    </div>
+</div>
