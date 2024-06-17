@@ -1,0 +1,60 @@
+﻿html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.footer {
+  text-align: center;
+  padding: 1em 0;
+  background-color: #343a40;
+  color: #ffffff;
+}
+
+.navbar {
+  background-color: #343a40;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link {
+  color: #ffffff;
+}
+
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  background-color: #343a40;
+  padding-top: 20px;
+}
+.sidebar a {
+  padding: 15px;
+  text-align: left;
+  display: block;
+  color: white;
+  text-decoration: none;
+}
+.sidebar a:hover {
+  background-color: #575d63;
+}
+.main-content {
+  margin-left: 200px; /* Same as the width of the sidebar */
+  padding: 20px;
+}
+
+.container {
+  margin-top: 20px;
+}

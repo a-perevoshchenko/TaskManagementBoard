@@ -1,0 +1,52 @@
+@model Issue
+
+@{
+    ViewData["Title"] = "Edit Issue";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Edit" method="post">
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ProjectId" class="control-label">Project</label>
+        <select asp-for="ProjectId" class="form-control" asp-items="@(new SelectList(ViewBag.Projects, "Id", "Name"))"></select>
+        <span asp-validation-for="ProjectId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="AssignedToUserId" class="control-label">Assigned To</label>
+        <select asp-for="AssignedToUserId" class="form-control" asp-items="@(new SelectList(ViewBag.Users, "Id", "UserName"))"></select>
+        <span asp-validation-for="AssignedToUserId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Priority" class="control-label"></label>
+        <select asp-for="Priority" class="form-control">
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+        </select>
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="control-label"></label>
+        <select asp-for="Status" class="form-control">
+            <option value="ToDo">To Do</option>
+            <option value="InProgress">In Progress</option>
+            <option value="InReview">In Review</option>
+            <option value="Done">Done</option>
+        </select>
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+</form>
