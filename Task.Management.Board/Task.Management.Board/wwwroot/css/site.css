@@ -10,27 +10,3 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
 }
-
-main {
-  flex: 1;
-}
-
-.footer {
-  text-align: center;
-  padding: 1em 0;
-  background-color: #343a40;
-  color: #ffffff;
-}
-
-.navbar {
-  background-color: #343a40;
-}
-
-.navbar .navbar-brand,
-.navbar .nav-link {
-  color: #f5c2c7;
-}
-
-.container {
-  margin-top: 20px;
-}

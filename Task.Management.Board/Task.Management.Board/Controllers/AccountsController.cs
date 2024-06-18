@@ -57,20 +57,13 @@ public class AccountsController(UserManager<ApplicationUser> userManager, SignIn
         
         return View(model);
     }
-
-    // GET: /Account/Logout
-    public IActionResult Logout()
-    {
-        return View();
-    }
-
+    
     // POST: /Account/Logout
-    [HttpPost, ActionName("Logout")]
+    [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> LogoutConfirmed()
+    public async Task<IActionResult> Logout()
     {
         await signInManager.SignOutAsync();
-        
-        return RedirectToAction("Index", "Home");
+        return Json(new { success = true });
     }
 }
