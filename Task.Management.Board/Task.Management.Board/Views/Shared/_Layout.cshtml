@@ -6,61 +6,121 @@
     <title>@ViewData["Title"] - Task.Management.Board</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/_Layout.css" />
 </head>
 <body>
-    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Task Management Board</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Projects" asp-action="Index">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Issues" asp-action="Index">Issues</a>
-                    </li>
-                    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin"))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Admins" asp-action="Index">Admin</a>
-                        </li>
-                    }
-                }
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Accounts" asp-action="Logout">Logout</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Accounts" asp-action="Login">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" asp-area="" asp-controller="Accounts" asp-action="Register">Register</a>
-                    </li>
-                }
-            </ul>
+<div class="wrapper">
+    <div class="sidebar">
+        <a asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i> Home</a>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <a asp-area="" asp-controller="Projects" asp-action="Index"><i class="fas fa-project-diagram"></i> Projects</a>
+            <a asp-area="" asp-controller="Issues" asp-action="Index"><i class="fas fa-tasks"></i> Issues</a>
+            <a asp-area="" asp-controller="Comments" asp-action="Index"><i class="fas fa-comments"></i> Comments</a>
+            <a asp-area="" asp-controller="Dashboards" asp-action="Index"><i class="fas fa-chart-line"></i> Dashboard</a>
+            @if (await UserManager.IsInRoleAsync((await UserManager.GetUserAsync(User))!, "Admin"))
+            {
+                <a asp-area="" asp-controller="Admins" asp-action="Index"><i class="fas fa-user-shield"></i> Admin</a>
+            }
+            <a href="#" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        }
+        else
+        {
+            <a asp-area="" asp-controller="Accounts" asp-action="Login"><i class="fas fa-sign-in-alt"></i> Login</a>
+            <a asp-area="" asp-controller="Accounts" asp-action="Register"><i class="fas fa-user-plus"></i> Register</a>
+        }
+    </div>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Confirm Logout</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to log out?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="confirmLogout" class="btn btn-primary">Logout</button>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Task.Management.Board</p>
-        </footer>
+    <div class="main-content">
+        <div class="container body-content">
+            @Html.AntiForgeryToken()
+            @RenderBody()
+        </div>
     </div>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Task.Management.Board</p>
+        <p>
+            <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </p>
+    </footer>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+<script>
+    $(document).ready(function() {
+        console.log("Document is ready");
+
+        // Check if modal element exists
+        if ($('#logoutModal').length) {
+            console.log("Modal element exists");
+        } else {
+            console.error("Modal element not found");
+        }
+
+        // Handle logout link click
+        $('#logoutLink').click(function(event) {
+            event.preventDefault();
+            console.log("Logout link clicked");
+            $('#logoutModal').modal('show');
+        });
+
+        // Ensure close buttons work
+        $('#logoutModal .close, #logoutModal .btn-secondary').click(function() {
+            $('#logoutModal').modal('hide');
+        });
+
+        // Handle logout via AJAX
+        $('#confirmLogout').click(function(event) {
+            event.preventDefault();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                url: '@Url.Action("Logout", "Accounts")',
+                type: 'POST',
+                data: {
+                    __RequestVerificationToken: token
+                },
+                success: function(result) {
+                    if (result.success) {
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    } else {
+                        console.error("Logout failed");
+                    }
+                },
+                error: function(err) {
+                    console.error("Logout failed:", err);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
