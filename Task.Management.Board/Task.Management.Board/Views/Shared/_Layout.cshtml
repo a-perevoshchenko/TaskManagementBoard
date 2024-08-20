@@ -33,6 +33,13 @@
         }
     </div>
 
+    <div class="main-content" style="margin-left: 200px">
+        <div class="container body-content">
+            @Html.AntiForgeryToken()
+            @RenderBody()
+        </div>
+    </div>
+
     <!-- Logout Modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -51,13 +58,6 @@
                     <button id="confirmLogout" class="btn btn-primary">Logout</button>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="main-content">
-        <div class="container body-content">
-            @Html.AntiForgeryToken()
-            @RenderBody()
         </div>
     </div>
 
